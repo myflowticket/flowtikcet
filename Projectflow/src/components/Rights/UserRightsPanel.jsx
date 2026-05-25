@@ -56,6 +56,34 @@ export function UserRightsPanel({ profiles, onSave }) {
           <div style={{ fontWeight: 700, fontSize: 14, color: "#1a1a1a" }}>Membres</div>
           <div style={{ fontSize: 11, color: "#ADB5BD", marginTop: 2 }}>Cliquez pour modifier les droits</div>
         </div>
+        {/* Liste membres */}
+<div style={{ width: 220, borderRight: "1px solid #F1F3F5", flexShrink: 0 }}>
+  <div style={{ padding: "16px 16px 10px", borderBottom: "1px solid #F1F3F5" }}>
+    <div style={{ fontWeight: 700, fontSize: 14, color: "#1a1a1a" }}>Membres</div>
+    <div style={{ fontSize: 11, color: "#ADB5BD", marginTop: 2 }}>Cliquez pour modifier les droits</div>
+  </div>
+
+  {/* ⭐ AJOUTER LE BOUTON ICI ⭐ */}
+  <button
+    onClick={() => alert("Formulaire de création à intégrer")}
+    style={{
+      width: "100%",
+      padding: "10px 16px",
+      background: "#3B5BDB",
+      color: "white",
+      border: "none",
+      cursor: "pointer",
+      fontSize: 13,
+      fontWeight: 600
+    }}
+  >
+    ➕ Créer un utilisateur
+  </button>
+
+  {/* Liste des comptes */}
+  {ACCOUNTS.map(acc => {
+  })}
+</div>
         {ACCOUNTS.map(acc => {
           const p          = profiles[acc.id] || { roles: [] };
           const isSelected = selectedUser === acc.id;
