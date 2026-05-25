@@ -62,8 +62,6 @@ export function UserRightsPanel({ profiles, onSave }) {
     <div style={{ fontWeight: 700, fontSize: 14, color: "#1a1a1a" }}>Membres</div>
     <div style={{ fontSize: 11, color: "#ADB5BD", marginTop: 2 }}>Cliquez pour modifier les droits</div>
   </div>
-
-  {/* ⭐ AJOUTER LE BOUTON ICI ⭐ */}
   <button
     onClick={() => alert("Formulaire de création à intégrer")}
     style={{
