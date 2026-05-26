@@ -1,0 +1,241 @@
+**
+ * global.css
+ * ─────────────────────────────────────────────
+ * Styles globaux de ProjectFlow.
+ * Pour modifier l'apparence générale → c'est ici.
+ * ─────────────────────────────────────────────
+ */
+
+/* ── Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #F4F6F8;
+  color: #1a1a1a;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+input, textarea, select, button {
+  font-family: inherit;
+}
+
+/* ── Scrollbar personnalisée */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D0D5DD; border-radius: 2px; }
+
+/* ── Select options */
+select option { background: #fff; color: #1a1a1a; }
+
+/* ── Autofill input */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+  -webkit-text-fill-color: #1a1a1a !important;
+}
+
+/* ── Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes popIn {
+  from { transform: scale(.92); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .4; }
+}
+
+@keyframes badgePop {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(224,49,49,.5); }
+  70%       { box-shadow: 0 0 0 5px rgba(224,49,49,0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── Classes utilitaires */
+.pf-animate-fadein    { animation: fadeIn .3s ease; }
+.pf-animate-popin     { animation: popIn .2s ease; }
+.pf-animate-spin      { animation: spin 1s linear infinite; }
+.pf-animate-pulse     { animation: pulse 1s infinite; }
+.pf-animate-float     { animation: float 3s ease-in-out infinite; }
+.pf-animate-badgepop  { animation: badgePop 2s infinite; }
+
+/* ── Carte ticket — effet hover */
+.pf-card-hover {
+  transition: all .15s ease;
+}
+.pf-card-hover:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.08) !important;
+  border-color: #D0D5DD !important;
+  transform: translateY(-1px);
+}
+
+/* ── Item sidebar — effet hover */
+.pf-sidebar-item {
+  transition: all .15s ease;
+}
+.pf-sidebar-item:hover {
+  background: #F4F6F8 !important;
+  color: #1a1a1a !important;
+}
+
+/* ── Bouton générique */
+.pf-btn {
+  transition: all .15s ease;
+}
+.pf-btn:hover { opacity: .88; }
+
+/* ── Input focus */
+.pf-input {
+  transition: all .2s ease;
+}
+.pf-input:focus {
+  border-color: #3B5BDB !important;
+  box-shadow: 0 0 0 3px rgba(59,91,219,.1) !important;
+  outline: none;
+}
+
+/* ── Checkbox */
+.pf-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #3B5BDB;
+  cursor: pointer;
+}
+
+/* ── Tag chip */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #F1F3F9;
+  color: #495057;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 100px;
+  border: 1px solid #E8EAED;
+}
+
+/* ── Overlay backdrop */
+.pf-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* ── Modal container */
+.pf-modal {
+  background: #fff;
+  border: 1px solid #E8EAED;
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.15);
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: popIn .2s ease;
+}
+
+/* ── Sidebar */
+.pf-sidebar {
+  width: 220px;
+  background: #fff;
+  border-right: 1px solid #F1F3F5;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+}
+
+/* ── Main content (décalé de la sidebar) */
+.pf-main {
+  margin-left: 220px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ── Topbar */
+.pf-topbar {
+  background: #fff;
+  border-bottom: 1px solid #F1F3F5;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* ── Section label dans la sidebar */
+.pf-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ADB5BD;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  padding: 12px 16px 4px;
+}
+
+/* ── Barre de progression */
+.pf-progress-bar {
+  height: 6px;
+  background: #F1F3F5;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.pf-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width .4s ease;
+}
+
+/* ── Responsive mobile */
+@media (max-width: 768px) {
+  .pf-sidebar {
+    display: none;
+  }
+  .pf-main {
+    margin-left: 0;
+  }
+  .pf-topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
