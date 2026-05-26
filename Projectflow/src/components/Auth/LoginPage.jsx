@@ -1,4 +1,3 @@
-
 /**
  * LoginPage.jsx
  * ─────────────────────────────────────────────
@@ -9,7 +8,21 @@
 
 import React, { useState } from "react";
 import { ACCOUNTS }        from "../../constants/accounts";
-import { DEFAULT_USER_PROFILES, ROLES } from "../../constants/roles"; import { Btn, Input, Field } from "../UI/UI";
+import { DEFAULT_USER_PROFILES, ROLES } from "../../constants/roles";
+import { Btn, Input, Field } from "../UI/UI";
+
+// ── Clé identique à celle utilisée dans UserRightsPanel
+const USERS_KEY = "projectflow-users-v1";
+
+// ── Charge les utilisateurs depuis localStorage (créés dynamiquement)
+// Si aucun utilisateur sauvegardé, retourne les comptes par défaut
+const loadAllUsers = () => {
+  try {
+    const saved = localStorage.getItem(USERS_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch (_) {}
+  return ACCOUNTS;
+};
 
 export function LoginPage({ onLogin }) {
   const [email,    setEmail]    = useState("");
@@ -18,17 +31,24 @@ export function LoginPage({ onLogin }) {
   const [loading,  setLoading]  = useState(false);
   const [showPass, setShowPass] = useState(false);
 
+  // Charge les utilisateurs à chaque tentative de login
+  // pour prendre en compte les nouveaux créés
   const doLogin = async (account) => {
     if (account) { onLogin(account); return; }
     setError(""); setLoading(true);
     await new Promise(r => setTimeout(r, 500));
-    const found = ACCOUNTS.find(a =>
+
+    const allUsers = loadAllUsers();
+    const found = allUsers.find(a =>
       a.email.toLowerCase() === email.toLowerCase().trim() &&
       a.password === password
     );
     found ? onLogin(found) : setError("Email ou mot de passe incorrect.");
     setLoading(false);
   };
+
+  // Utilisateurs affichés en connexion rapide
+  const allUsers = loadAllUsers();
 
   return (
     <div style={{
@@ -128,8 +148,8 @@ export function LoginPage({ onLogin }) {
             }}>
               CONNEXION RAPIDE
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              {ACCOUNTS.map(account => (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, maxHeight: 240, overflowY: "auto" }}>
+              {allUsers.map(account => (
                 <button
                   key={account.id}
                   onClick={() => doLogin(account)}
@@ -152,7 +172,7 @@ export function LoginPage({ onLogin }) {
                   <div style={{ textAlign: "left" }}>
                     <div style={{ fontWeight: 600, fontSize: 12, color: "#1a1a1a" }}>{account.name}</div>
                     <div style={{ fontSize: 9, color: "#ADB5BD" }}>
-                      {(DEFAULT_USER_PROFILES[account.id]?.roles || []).map(r => ROLES[r]?.label).join(", ")}
+                      {(DEFAULT_USER_PROFILES[account.id]?.roles || []).map(r => ROLES[r]?.label).join(", ") || "Lecteur"}
                     </div>
                   </div>
                 </button>
@@ -164,4 +184,3 @@ export function LoginPage({ onLogin }) {
     </div>
   );
 }
-
