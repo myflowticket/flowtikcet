@@ -11,6 +11,7 @@ import { ACCOUNTS }                from "../../constants/accounts";
 import { COLUMNS, COL_CFG }        from "../../constants/config";
 import { PRIORITIES }              from "../../constants/config";
 import { getPriority, getFileIcon, formatFileSize } from "../../utils/helpers"; import { Overlay, Btn, Input, TabBar, Field, selectStyle } from "../UI/UI";
+import { TICKET_TYPES } from "../../constants/ticketTypes";
 
 export function TicketModal({
   ticket, currentUser,
@@ -108,6 +109,23 @@ export function TicketModal({
               style={{ width: "100%", border: "1px solid #E8EAED", borderRadius: 8, padding: "8px 12px", fontSize: 13, color: "#1a1a1a", outline: "none", background: "#fff", resize: "vertical", fontFamily: "inherit" }}
             />
           </Field>
+return (
+  <div className="modal-content">
+
+    <h2>Nouveau ticket</h2>
+
+    <div className="form-group">
+      <label>Type de ticket</label>
+      <select value={type} onChange={(e) => setType(e.target.value)}>
+        {TICKET_TYPES.map((t) => (
+          <option key={t.id} value={t.id}>{t.label}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* autres champs */}
+  </div>
+);
 
           {/* Statut + Priorité */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>

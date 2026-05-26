@@ -90,6 +90,8 @@ export function TicketCard({
           </div>
         )}
 
+<Badge label={ticket.type} color="blue" />
+
         {/* Pièces jointes */}
         {ticket.attachments?.length > 0 && (
           <div style={{ fontSize: 10, color: "#3B5BDB", marginBottom: 6 }}>

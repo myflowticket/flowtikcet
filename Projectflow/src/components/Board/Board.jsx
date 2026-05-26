@@ -359,7 +359,7 @@ export function Board({ currentUser, onLogout }) {
           {/* Droits utilisateurs */}
           {activePage === "rights" && (
             <div style={{ background: "#fff", border: "1px solid #E8EAED", borderRadius: 12, overflow: "hidden", height: "calc(100vh - 160px)" }}>
-              <UserRightsPanel profiles={profiles} onSave={saveProfiles} currentUser={currentUser} />
+             <UserRightsPanel profiles={profiles} onSave={saveProfiles} currentUser={currentUser} />
             </div>
           )}
 
