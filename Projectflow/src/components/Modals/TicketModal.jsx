@@ -8,10 +8,9 @@
 
 import React, { useState, useRef } from "react";
 import { ACCOUNTS }                from "../../constants/accounts";
-import { COLUMNS, COL_CFG }        from "../../constants/config";
-import { PRIORITIES }              from "../../constants/config";
-import { getPriority, getFileIcon, formatFileSize } from "../../utils/helpers"; import { Overlay, Btn, Input, TabBar, Field, selectStyle } from "../UI/UI";
-import { TICKET_TYPES } from "../../constants/ticketTypes";
+import { COLUMNS, COL_CFG, PRIORITIES } from "../../constants/config";
+import { getPriority, getFileIcon, formatFileSize } from "../../utils/helpers";
+import { Overlay, Btn, Input, TabBar, Field, selectStyle } from "../UI/UI";
 
 export function TicketModal({
   ticket, currentUser,
@@ -31,7 +30,6 @@ export function TicketModal({
   const [tagInput, setTagInput] = useState("");
   const fileRef = useRef(null);
 
-  // ── Mise à jour d'un champ du formulaire
   const upd = (key, value) => setForm(f => ({ ...f, [key]: value }));
 
   // ── Tags
@@ -45,7 +43,7 @@ export function TicketModal({
   // ── Pièces jointes
   const handleFiles = (files) => {
     Array.from(files).forEach(file => {
-      if (file.size > 5 * 1024 * 1024) return; // Max 5 Mo
+      if (file.size > 5 * 1024 * 1024) return;
       const reader = new FileReader();
       reader.onload = (ev) => setForm(f => ({
         ...f,
@@ -109,23 +107,6 @@ export function TicketModal({
               style={{ width: "100%", border: "1px solid #E8EAED", borderRadius: 8, padding: "8px 12px", fontSize: 13, color: "#1a1a1a", outline: "none", background: "#fff", resize: "vertical", fontFamily: "inherit" }}
             />
           </Field>
-return (
-  <div className="modal-content">
-
-    <h2>Nouveau ticket</h2>
-
-    <div className="form-group">
-      <label>Type de ticket</label>
-      <select value={type} onChange={(e) => setType(e.target.value)}>
-        {TICKET_TYPES.map((t) => (
-          <option key={t.id} value={t.id}>{t.label}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* autres champs */}
-  </div>
-);
 
           {/* Statut + Priorité */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
@@ -208,8 +189,6 @@ return (
       {tab === "attachments" && (
         <div>
           <input ref={fileRef} type="file" multiple style={{ display: "none" }} onChange={e => handleFiles(e.target.files)} />
-
-          {/* Zone de drop */}
           <div
             onClick={() => fileRef.current?.click()}
             onDragOver={e => { e.preventDefault(); e.currentTarget.style.borderColor = "#3B5BDB"; }}
@@ -224,7 +203,6 @@ return (
             <div style={{ fontSize: 11, color: "#ADB5BD" }}>ou cliquez pour parcourir · Max 5 Mo</div>
           </div>
 
-          {/* Liste des fichiers */}
           {form.attachments.length === 0
             ? <div style={{ textAlign: "center", color: "#ADB5BD", fontSize: 13, padding: "12px 0" }}>Aucune pièce jointe</div>
             : form.attachments.map(att => (
@@ -299,4 +277,3 @@ return (
     </Overlay>
   );
 }
-
