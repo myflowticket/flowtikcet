@@ -9,6 +9,7 @@
 import React, { useState, useRef } from "react";
 import { ACCOUNTS }                from "../../constants/accounts";
 import { COLUMNS, COL_CFG, PRIORITIES } from "../../constants/config";
+import { TICKET_TYPES }            from "../../constants/ticketTypes";
 import { getPriority, getFileIcon, formatFileSize } from "../../utils/helpers";
 import { Overlay, Btn, Input, TabBar, Field, selectStyle } from "../UI/UI";
 
@@ -22,6 +23,7 @@ export function TicketModal({
 
   const [form,     setForm]     = useState({
     ...ticket,
+    type:        ticket.type        || "tache",
     tags:        [...(ticket.tags        || [])],
     attachments: [...(ticket.attachments || [])],
     history:     [...(ticket.history     || [])],
@@ -72,6 +74,8 @@ export function TicketModal({
     { id: "history",     label: "Historique" },
   ];
 
+  const currentType = TICKET_TYPES.find(t => t.id === form.type) || TICKET_TYPES[2];
+
   return (
     <Overlay onClose={onClose}>
 
@@ -89,6 +93,37 @@ export function TicketModal({
       {/* ── Onglet Détails */}
       {tab === "details" && (
         <>
+          {/* Type de ticket */}
+          <Field label="Type de ticket">
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+              {TICKET_TYPES.map(t => {
+                const active = form.type === t.id;
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => upd("type", t.id)}
+                    style={{
+                      background: active ? t.bg : "#F8F9FA",
+                      border: `1.5px solid ${active ? t.color : "#E8EAED"}`,
+                      borderRadius: 20,
+                      padding: "5px 14px",
+                      fontSize: 12,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 5,
+                      fontWeight: active ? 600 : 400,
+                      color: active ? t.color : "#495057",
+                      transition: "all .15s",
+                    }}
+                  >
+                    <span>{t.icon}</span>{t.label}
+                  </button>
+                );
+              })}
+            </div>
+          </Field>
+
           <Field label="Titre *">
             <Input
               value={form.title}
